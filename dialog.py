@@ -15,17 +15,15 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(400, 300)
-
         self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
         self.buttonBox.setGeometry(QtCore.QRect(170, 250, 211, 32))
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName("buttonBox")
-
         self.pushButton = QtWidgets.QPushButton(Dialog)
         self.pushButton.setGeometry(QtCore.QRect(260, 210, 121, 31))
         self.pushButton.setObjectName("pushButton")
-
+        self.pushButton.clicked.connect(self.handleSendPhoto)
         self.textBrowser = QtWidgets.QTextBrowser(Dialog)
         self.textBrowser.setGeometry(QtCore.QRect(20, 20, 351, 171))
         self.textBrowser.setObjectName("textBrowser")
@@ -39,3 +37,16 @@ class Ui_Dialog(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.pushButton.setText(_translate("Dialog", "Send photo"))
+
+    def handleSendPhoto(self):
+        print("jaja")
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Dialog = QtWidgets.QDialog()
+    ui = Ui_Dialog()
+    ui.setupUi(Dialog)
+    Dialog.show()
+    sys.exit(app.exec_())

@@ -3,8 +3,32 @@ import PyQt5
 import uploader as uploader
 from fastbook import *
 from fastai.vision.all import *
-from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QPushButton
+
+
+
+if __name__ == "__main__":
+    import sys
+
+    app = QtWidgets.QApplication(sys.argv)
+    Dialog = QtWidgets.QDialog()
+    ui = Ui_Dialog()
+    ui.setupUi(Dialog)
+    Dialog.show()
+    sys.exit(app.exec_())
+
+def clicked():
+    print("clicked")
+
+
+
+
+
+
+
+
+
+
+
 
 
 def main():
@@ -33,9 +57,3 @@ def main():
 
     print(f"Is this a cat?: {is_cat}.")
     print(f"Probability it's a cat: {probs[1].item():.6f}")
-
-if __name__ == "__main__":
-    main()
-
-def clicked():
-    print("clicked")
