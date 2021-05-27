@@ -1,59 +1,22 @@
-import fastbook
-import PyQt5
-import uploader as uploader
-from fastbook import *
-from fastai.vision.all import *
+from classifier import Classifier
+import sys
+import os
 
+if len(sys.argv) != 2:
+    print("One and only one argument is needed - path to image. Exiting...")
+    exit()
 
+imagePath = sys.argv[1]
+if not os.path.isfile(imagePath):
+    print("You dummy! The file does not exist. You had one job...")
+    exit()
 
-if __name__ == "__main__":
-    import sys
+classifier = Classifier()
+yummy, probability = classifier.isYummyFromPath(imagePath)
 
-    app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
-    ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
-    sys.exit(app.exec_())
-
-def clicked():
-    print("clicked")
-
-
-
-
-
-
-
-
-
-
-
-
-
-def main():
-
-    Form, Window = uic.loadUiType("C:/Users/monik/Desktop/io_impl/dialog.ui")
-    app = QApplication([])
-    window = Window()
-    form = Form()
-    form.setupUi(window)
-    window.show()
-    app.exec_()
-
-    fastbook.setup_book()
-    torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    torch.cuda.empty_cache()
-    torch.device("cpu")
-    new_learn = load_learner("C:/Users/monik/wykrywacz.pkl")
-
-    #
-    uploader = widgets.FileUpload()
-    img = PILImage.create(uploader.data[0])
-    #
-
-    # rozpoznajemy obrazek we wczytanym modelu
-    is_cat, _, probs = new_learn.predict(img)
-
-    print(f"Is this a cat?: {is_cat}.")
-    print(f"Probability it's a cat: {probs[1].item():.6f}")
+if yummy:
+    print("MMM! What a delicious meal! Probability it's yummy: %.5f" % probability)
+    print("It would fit right in https://reddit.com/r/foodporn")
+else:
+    print("EWWW, disgusting!!!! Probability it's yummy: %.5f" % probability)
+    print("Take that away to https://reddit.com/r/shittyfoodporn")
